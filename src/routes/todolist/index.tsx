@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { action$, Form, loader$, z, zod$, type DocumentHead } from '@builder.io/qwik-city';
-import { supabase } from '~/server/utils/supabase/db';
+import { supabase } from '~/server/supabase/db';
 
 export const useTodoLoader = loader$(async () => {
   return (await supabase.from("todos").select()).data
