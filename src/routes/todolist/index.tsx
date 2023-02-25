@@ -1,6 +1,16 @@
 import { component$ } from '@builder.io/qwik';
 import { action$, Form, loader$, z, zod$, type DocumentHead } from '@builder.io/qwik-city';
+import { getUserFromEvent } from '~/server/loaders';
 import { supabase } from '~/server/supabase/db';
+import { paths } from '~/utils/paths';
+
+export const useAuth = loader$(async (event) => {
+  const user = await getUserFromEvent(event);
+
+  if (!user) {
+    event.redirect(302, paths.index);
+  }
+});
 
 export const useTodoLoader = loader$(async () => {
   return (await supabase.from("todos").select()).data
@@ -21,6 +31,8 @@ export const useAddToListAction = action$(
 );
 
 export default component$(() => {
+  useAuth()
+
   const list = useTodoLoader();
   const action = useAddToListAction();
 

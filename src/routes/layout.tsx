@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div class="min-h-screen flex flex-col">
       <Header />
-      <main class="bg-blue-50 p-10 flex-grow overflow-hidden">
+      <main class="bg-blue-50">
         <Slot />
       </main>
       <Footer />
